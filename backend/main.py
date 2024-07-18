@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from questions.Question import Questions, Question
+from constants import PACKAGES, BRANDS
 app = Flask(__name__)
 cors = CORS(app)
 my_questions = Questions()
@@ -10,7 +11,7 @@ def retrieve_questions():
     return jsonify(result), 200
 @app.route('/retrieve_question_types', methods=["GET"])
 def retrieve_question_types():
-    return jsonify(["checkbox", "dropdown", "number"]), 200
+    return jsonify(["checkbox", "dropdown"]), 200
 @app.route('/retrieve_customer_recommendations', methods=["GET"])
 def retrieve_customer_recommendations():
     question_answers = request.args.to_dict()
@@ -41,23 +42,30 @@ def retrieve_customer_recommendations():
         "brands": sorted(brand_options.items(), key=lambda x: x[1], reverse=True),
         "packages" : sorted(package_options.items(), key=lambda x: x[1], reverse=True)
     }
-    print("result was, ", result)
     return jsonify(result), 200
 @app.route('/create_or_edit_question', methods=["POST"])
 def create_or_edit_question():
     #title = "", description = "", question_type = "", options = None, option_biases = None
-    title = request.args.get("title")
-    description = request.args.get("description")
-    question_type = request.args.get("question_type")
-    options = request.args.get("options")
-    option_biases = request.args.get("option_biases")
-    new_question = Question(title, description, question_type, options, option_biases)
-    my_questions.add_question(new_question)
-    return 200
+    question_json = request.get_json()
+    curr_question = Question()
+    curr_question.from_dict(question_json)
+    my_questions.add_question(curr_question)
+    return jsonify({"status": 200})
+@app.route('/remove_question', methods=["POST"])
+def remove_question():
+    payload = request.get_json()
+    question_title = payload["title"]
+    my_questions.remove_question_from_title(question_title)
+    return jsonify({"status": 200})
 @app.route('/', methods=["GET"])
 def home():
     return "Hello world", 200
-
+@app.route('/get_package_options', methods=["GET"])
+def get_package_options():
+    return jsonify(PACKAGES), 200
+@app.route('/get_brand_options', methods=["GET"])
+def get_brand_options():
+    return jsonify(BRANDS)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)

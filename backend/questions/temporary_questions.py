@@ -2,7 +2,6 @@ import sys
 import os
 sys.path.append(os.getcwd())
 from questions.Question import Question, Questions
-brands = ['Coke', 'Coke Zero', 'Diet Coke', 'Sprite', 'Seagram’s', 'MM Lemonade', 'Gold Peak', 'Dasani', 'Coke de Mexico', 'Fanta Orange', 'Topo Chico']
 demographic_options = [
     "White", 
     "African American", 
@@ -35,11 +34,11 @@ volume_option_biases = {
     },
     10 : {
         "brands" : {},
-        "packages": {"can" : 1}
+        "packages": {"12 oz cans" : 1}
     },
     20 : {
         "brands" : {},
-        "packages": {"glass": 1}
+        "packages": {"Glass 8oz": 1}
     }
 }
 restaurant_options = [
@@ -57,7 +56,7 @@ restaurant_option_biases = {
     },
     "Bar/Tavern": {
         "brands": {},
-        "packages": {"bar gun": 1}
+        "packages": {"Bar gun": 1}
     }
 }
 

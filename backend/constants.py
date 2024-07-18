@@ -1,4 +1,46 @@
-brands = "Coke, Coke Zero, Diet Coke, Sprite, Seagram’s, MM Lemonade, Gold Peak, Dasani".split(',')
-for i in range(0, len(brands)):
-    brands[i] = brands[i].strip()
-print(brands)
+BRANDS=[
+    "Pibb Xtra",
+    "Barqs",
+    "Fanta Orange",
+    "Fanta Grape",
+    "Fanta Strawberry",
+    "Powerade",
+    "Hi-C",
+    "Cherry Coke",
+    "Mello Yellow",
+    "Coke",
+    "Coke Zero", 
+    "Diet Coke",
+    "Sprite",
+    "Seagram's",
+    "MM Lemonade",
+    "Gold Peak",
+    "Dasani",
+    "MM Apple Juice",
+    "Dunkin Iced Coffee", 
+    "Fairlife Milk",
+    "Monster Java",
+    "Body Armor",
+    "Smart Water",
+    "Fresca",
+    "Monster",
+    "Peace Tea",
+    "MM Fruit Punch",
+    "Monster Zero",
+    "Topo Chico",
+    "Topo Chico Mixers",
+    "Topo Chico Sabores"
+]
+PACKAGES=[
+    "Traditional 8 valve fountain", 
+    "6 valve fountain", "Flex freestyle", 
+    "Bar gun", 
+    "Variety tea tower",
+    "12 oz cans",
+    "20oz PET",
+    "Slim cans",
+    "Glass imports",
+    "Glass 8oz"
+]
+BRANDS = sorted(BRANDS)
+PACKAGES = sorted(PACKAGES)

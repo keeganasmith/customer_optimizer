@@ -79,3 +79,88 @@ function submit(){
   </ul>
   </div>
 </template>
+<style scoped>
+h1 {
+  color: #fe001a; /* Coca-Cola Red */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #fe001a; /* Coca-Cola Red */
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f9f9f9; /* Light gray background for better readability */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+input[type="number"], select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-top: 5px;
+  display: block;
+}
+
+label {
+  color: black;
+}
+
+button {
+  background-color: #fe001a; /* Coca-Cola Red */
+  color: white; /* White text */
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: darkred; /* Darker shade for hover effect */
+}
+
+div {
+  margin-top: 20px;
+}
+
+div p {
+  font-weight: bold;
+}
+
+div ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+div li {
+  background-color: white;
+  border: none;
+  margin-bottom: 5px;
+  padding: 0;
+}
+</style>

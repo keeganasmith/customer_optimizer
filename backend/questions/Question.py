@@ -1,4 +1,5 @@
 import pickle
+from constants import PACKAGES, BRANDS
 #question types: checkbox, number, dropdown
 class Question:
     def __init__(self, title = "", description = "", question_type = "", options = None, option_biases = None):
@@ -6,7 +7,28 @@ class Question:
         self.description = description
         self.question_type = question_type
         self.options = options
-        self.option_biases = option_biases
+        self.option_biases = {}
+        if(self.options):
+            for temp_option in self.options:
+                self.option_biases[temp_option] = {}
+                self.option_biases[temp_option]["packages"] = {}
+                self.option_biases[temp_option]["brands"] = {}
+                for package in PACKAGES:
+                    self.option_biases[temp_option]["packages"][package] = 0
+                for brand in BRANDS:
+                    self.option_biases[temp_option]["brands"][brand] = 0
+            #self.option_biases.update(option_biases)
+            if(option_biases):
+                for option in self.options:
+                    other_package_biases = option_biases[option]["packages"]
+                    other_brand_biases = option_biases[option]["brands"]
+                    for package in list(other_package_biases.keys()):
+                        self.option_biases[option]["packages"][package] = other_package_biases[package]
+                    for brand in list(other_brand_biases.keys()):
+                        self.option_biases[option]["brands"][brand] = other_brand_biases[brand]
+            print(self.option_biases)
+        else:
+            self.option_biases = option_biases
     def to_dict(self):
         return self.__dict__
     def __eq__(self, other_question):
@@ -104,7 +126,14 @@ class Questions:
                 self.write_questions(curr_questions)
                 return True
         return False
-
+    def remove_question_from_title(self, question_title):
+        curr_questions = self.load_questions()
+        for i in range(0, len(curr_questions)):
+            if(curr_questions[i].title == question_title):
+                del curr_questions[i]
+                self.write_questions(curr_questions)
+                return True
+        return False
     def edit_question(self, question):
         curr_questions = self.load_questions()
         for i in range(0, len(curr_questions)):
