@@ -2,11 +2,11 @@
 
 Dependencies: \
 Node v20.10.0 - https://nodejs.org/en/learn/getting-started/how-to-install-nodejs \
-Python 3.12.1 - https://www.python.org/downloads/ \
+Python 3.12.1 - https://www.python.org/downloads/ 
 
 first clone the repo: \
 ```git clone https://github.com/keeganasmith/customer_optimizer.git``` \
-Install all relevant packages with: \
+Install all relevant packages with: 
 ```
 cd customer_optimizer
 cd backend
@@ -18,7 +18,7 @@ npm install
 
 # Running the program
 
-Open two terminals, in one terminal run: \
+Open two terminals, in one terminal run: 
 ```
 cd backend
 python3 main.py
