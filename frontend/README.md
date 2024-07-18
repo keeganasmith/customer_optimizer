@@ -1,29 +1,31 @@
-# frontend
+# Build/Installation
 
-This template should help get you started developing with Vue 3 in Vite.
+Dependencies: \
+Node v20.10.0 - https://nodejs.org/en/learn/getting-started/how-to-install-nodejs \
+Python 3.12.1 - https://www.python.org/downloads/ \
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+first clone the repo: \
+```git clone https://github.com/keeganasmith/customer_optimizer.git``` \
+Install all relevant packages with: \
+```
+cd customer_optimizer
+cd backend
+pip install -r requirements.txt
+cd ..
+cd frontend
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+# Running the program
 
-```sh
+Open two terminals, in one terminal run: \
+```
+cd backend
+python3 main.py
+```
+in the other run:
+```
+cd frontend
 npm run dev
 ```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+Open http://localhost:5173 in your browser
