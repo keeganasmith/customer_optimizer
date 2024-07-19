@@ -22,7 +22,6 @@ function get_question_types(){
 }
 function get_recommendations(payload){
     const queryString = new URLSearchParams(payload).toString();
-    console.log(queryString)
     return get_data('/retrieve_customer_recommendations?' + queryString).then((data) => {
         return data
     })
@@ -37,7 +36,7 @@ function get_packages(){
         return data
     })
 }
-function update_question(title, description, question_type, options, option_biases){
+async function update_question(title, description, question_type, options, option_biases){
     let body = {
         title: title,
         description: description,
@@ -46,20 +45,20 @@ function update_question(title, description, question_type, options, option_bias
         option_biases: option_biases
     }
     body = JSON.stringify(body)
-    fetch(url + '/create_or_edit_question', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json' 
-        },
-        body: body 
-    })
-    .then((response) => {
-        return response.json()
-    })
-    .then((data) => {
+    try {
+        let response = await fetch(url + '/create_or_edit_question', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: body 
+        })
+        let data = await response.json()
         return data
-    })
-    .catch(error => console.error('Errror:', error))
+    }
+    catch(error){
+        console.error('Errror:', error)
+    }
 }
 async function remove_question(title){
     let body = {
