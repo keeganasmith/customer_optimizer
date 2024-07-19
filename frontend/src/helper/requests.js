@@ -1,4 +1,4 @@
-const url = "http://localhost:5001"
+const url = "https://https://customer-optimizer-66e490af52f5.herokuapp.com"
 function get_data(endpoint){
     return fetch(url + endpoint, {
         method: 'GET'
