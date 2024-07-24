@@ -2,9 +2,18 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from questions.Question import Questions, Question
 from constants import PACKAGES, BRANDS
+from dotenv import load_dotenv
+import os
+load_dotenv()
+my_pin = os.environ["PIN"]
 app = Flask(__name__)
 cors = CORS(app)
 my_questions = Questions()
+def validate_pin(my_request):
+    return my_request["pin"] == my_pin
+@app.route('/validate_pin', methods=["GET"])
+def validate_pi():
+    return jsonify(request.args["pin"] == my_pin), 200
 @app.route('/retrieve_questions', methods=["GET"])
 def retrieve_questions():
     result = my_questions.get_questions_as_dict()
@@ -47,6 +56,10 @@ def retrieve_customer_recommendations():
 def create_or_edit_question():
     #title = "", description = "", question_type = "", options = None, option_biases = None
     question_json = request.get_json()
+    valid_pin = validate_pin(request.get_json())
+    del question_json["pin"]
+    if(not valid_pin):
+        return jsonify({"status": 401})
     curr_question = Question()
     curr_question.from_dict(question_json)
     my_questions.add_question(curr_question)
@@ -54,6 +67,10 @@ def create_or_edit_question():
 @app.route('/remove_question', methods=["POST"])
 def remove_question():
     payload = request.get_json()
+    valid_pin = validate_pin(request.get_json())
+    del payload["pin"]
+    if(not valid_pin):
+        return jsonify({"status": 401})
     question_title = payload["title"]
     my_questions.remove_question_from_title(question_title)
     return jsonify({"status": 200})

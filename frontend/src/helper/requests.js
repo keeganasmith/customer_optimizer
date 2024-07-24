@@ -1,4 +1,4 @@
-const url = "https://customer-optimizer-66e490af52f5.herokuapp.com"
+const url = "http://localhost:5001"
 function get_data(endpoint){
     return fetch(url + endpoint, {
         method: 'GET'
@@ -42,7 +42,8 @@ async function update_question(title, description, question_type, options, optio
         description: description,
         question_type: question_type,
         options: options,
-        option_biases: option_biases
+        option_biases: option_biases,
+        pin: sessionStorage.getItem("pin")
     }
     body = JSON.stringify(body)
     try {
@@ -62,7 +63,8 @@ async function update_question(title, description, question_type, options, optio
 }
 async function remove_question(title){
     let body = {
-        title: title
+        title: title,
+        pin: sessionStorage.getItem("pin")
     }
     body = JSON.stringify(body)
     try{
@@ -80,4 +82,8 @@ async function remove_question(title){
         console.error("Error:",error)
     }
 }
-export {get_data,get_questions, get_recommendations, get_question_types, get_brands, get_packages, update_question, remove_question}
+async function validate_pin(pin){
+    let response = await fetch(url + "/validate_pin?pin=" + pin);
+    return await response.json()
+}
+export {get_data,get_questions, get_recommendations, get_question_types, get_brands, get_packages, update_question, remove_question, validate_pin}

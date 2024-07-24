@@ -1,16 +1,32 @@
 <script setup>
 import {ref, onMounted} from 'vue'
-import {get_questions, remove_question} from '@/helper/requests'
+import {get_questions, remove_question, validate_pin} from '@/helper/requests'
 import { useRouter } from 'vue-router';
 import { questionStore } from '@/QuestionStore'
 let questions = ref([])
 let loaded = ref(false)
+let validated = ref(false)
+let pin = ref("")
 const router = useRouter()
 onMounted(async () => {
     loaded.value = false
     questions.value = await get_questions()
+    if(sessionStorage.getItem("validated") === "true"){
+      validated.value = true;
+    }
+    else{
+      validated.value = false;
+    }
     loaded.value = true
 })
+async function _validate_pin(){
+  let pin_result = await validate_pin(pin.value)
+  if(pin_result){
+    sessionStorage.setItem("validated", "true")
+    sessionStorage.setItem("pin", pin.value)
+    validated.value = true
+  }
+}
 function edit_question(question_title){
     let my_question = {}
     for(let i = 0; i < questions.value.length; i++){
@@ -51,11 +67,18 @@ function new_question(){
 }
 </script>
 <template>
-    <h1>Questions</h1>
-    <button @click="new_question">Create a new question</button>
-    <div v-if="loaded" v-for="(question, index) in questions" :key="index">
-        <button @click="edit_question(question.title)">{{ question.title }}</button>
-        <button @click="_remove_question(question.title)">x</button>
+    <div v-if="!validated">
+      <label for="pin_enter">Enter pin to manage questions:</label>
+      <input type="text" id="pin_enter" v-model="pin">
+      <button @click="_validate_pin">Submit</button>
+    </div>
+    <div v-if="validated">
+      <h1>Questions</h1>
+      <button @click="new_question">Create a new question</button>
+      <div v-if="loaded" v-for="(question, index) in questions" :key="index">
+          <button @click="edit_question(question.title)">{{ question.title }}</button>
+          <button @click="_remove_question(question.title)">x</button>
+      </div>
     </div>
 </template>
 <style scoped>
