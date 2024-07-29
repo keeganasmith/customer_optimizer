@@ -15,7 +15,11 @@ cd ..
 cd frontend
 npm install
 ```
-
+Create a .env file with the contents: 
+```
+DATABASE_URI=<enter your psql database uri here>
+PIN=<enter a random pin here>
+```
 # Running the program
 
 Open two terminals, in one terminal run: 
